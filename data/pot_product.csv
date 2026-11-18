@@ -1,0 +1,4 @@
+product_id,pot_id,meal_type,audience,portions
+PP1,K1,M1,patient,2
+PP2,K1,M2,patient,1
+PP3,K1,M1,staff,2

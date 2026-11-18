@@ -1,0 +1,5 @@
+recipe_id,version,meal_type,ingredient,grams
+R1,V1,M1,rice,100
+R2,V1,M2,rice,150
+R3,V1,M1,vegetable,100
+R4,V1,M2,vegetable,120

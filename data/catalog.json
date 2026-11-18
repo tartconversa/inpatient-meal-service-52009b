@@ -1,0 +1,391 @@
+{
+  "title": "住院配餐的供餐与耗用事实仓",
+  "synthetic": true,
+  "tables": [
+    {
+      "name": "meal_slots",
+      "description": "稳定需求。",
+      "columns": [
+        {
+          "name": "slot_id",
+          "type": "string",
+          "description": "槽",
+          "nullable": true
+        },
+        {
+          "name": "person",
+          "type": "string",
+          "description": "人",
+          "nullable": true
+        },
+        {
+          "name": "meal_at",
+          "type": "datetime",
+          "description": "餐次",
+          "nullable": true
+        },
+        {
+          "name": "original_ward",
+          "type": "string",
+          "description": "病区",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "slot_id"
+      ],
+      "references": [],
+      "path": "data/meal_slots.csv",
+      "row_count": 3,
+      "sha256": "63c04a30eeb7fa7dfb02b59e0ee92060f3ba663b42b2b1620d7bfe5518fd982b"
+    },
+    {
+      "name": "order_changes",
+      "description": "餐种/状态变更。",
+      "columns": [
+        {
+          "name": "change_id",
+          "type": "string",
+          "description": "改",
+          "nullable": true
+        },
+        {
+          "name": "slot_id",
+          "type": "string",
+          "description": "槽",
+          "nullable": true
+        },
+        {
+          "name": "effective",
+          "type": "datetime",
+          "description": "时点",
+          "nullable": true
+        },
+        {
+          "name": "meal_type",
+          "type": "string",
+          "description": "餐种",
+          "nullable": true
+        },
+        {
+          "name": "ward",
+          "type": "string",
+          "description": "目的区",
+          "nullable": true
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": "active或cancelled",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "change_id"
+      ],
+      "references": [
+        {
+          "column": "slot_id",
+          "target_table": "meal_slots",
+          "target_column": "slot_id"
+        }
+      ],
+      "path": "data/order_changes.csv",
+      "row_count": 5,
+      "sha256": "837d2b51a81188a58e83e79d49e138a63ebfa29d81267536f84c15c78d36c273"
+    },
+    {
+      "name": "pots",
+      "description": "真实锅次。",
+      "columns": [
+        {
+          "name": "pot_id",
+          "type": "string",
+          "description": "锅",
+          "nullable": true
+        },
+        {
+          "name": "recipe_version",
+          "type": "string",
+          "description": "配方版",
+          "nullable": true
+        },
+        {
+          "name": "made_at",
+          "type": "datetime",
+          "description": "制作",
+          "nullable": true
+        },
+        {
+          "name": "cutoff_at",
+          "type": "datetime",
+          "description": "内部收费截止",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "pot_id"
+      ],
+      "references": [],
+      "path": "data/pots.csv",
+      "row_count": 1,
+      "sha256": "7020aaae743a2b34766cc0bb6de0c4ff2af5f25d3d700d437cc42d7cd8999d27"
+    },
+    {
+      "name": "pot_product",
+      "description": "实际产出包括staff。",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "string",
+          "description": "产品",
+          "nullable": true
+        },
+        {
+          "name": "pot_id",
+          "type": "string",
+          "description": "锅",
+          "nullable": true
+        },
+        {
+          "name": "meal_type",
+          "type": "string",
+          "description": "餐种",
+          "nullable": true
+        },
+        {
+          "name": "audience",
+          "type": "string",
+          "description": "patient或staff",
+          "nullable": true
+        },
+        {
+          "name": "portions",
+          "type": "integer",
+          "description": "份数",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "product_id"
+      ],
+      "references": [
+        {
+          "column": "pot_id",
+          "target_table": "pots",
+          "target_column": "pot_id"
+        }
+      ],
+      "path": "data/pot_product.csv",
+      "row_count": 3,
+      "sha256": "0937e675b753fe4373f5ed63700ca3f16af4a77cbe1ed5c3cf786fae9be9384c"
+    },
+    {
+      "name": "recipes",
+      "description": "食材标准权重，不是实耗。",
+      "columns": [
+        {
+          "name": "recipe_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "description": "版",
+          "nullable": true
+        },
+        {
+          "name": "meal_type",
+          "type": "string",
+          "description": "餐种",
+          "nullable": true
+        },
+        {
+          "name": "ingredient",
+          "type": "string",
+          "description": "食材",
+          "nullable": true
+        },
+        {
+          "name": "grams",
+          "type": "number",
+          "description": "每份克",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "recipe_id"
+      ],
+      "references": [],
+      "path": "data/recipes.csv",
+      "row_count": 4,
+      "sha256": "3f2ece05463ad8011ff57be61a8b3ee24ea3f5e21645905a94e25e11347a18af"
+    },
+    {
+      "name": "ingredient_moves",
+      "description": "厨房领退。",
+      "columns": [
+        {
+          "name": "move_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "pot_id",
+          "type": "string",
+          "description": "锅",
+          "nullable": true
+        },
+        {
+          "name": "ingredient",
+          "type": "string",
+          "description": "食材",
+          "nullable": true
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "description": "issue或return",
+          "nullable": true
+        },
+        {
+          "name": "grams",
+          "type": "number",
+          "description": "正克数",
+          "nullable": true
+        },
+        {
+          "name": "yuan_per_g",
+          "type": "number",
+          "description": "成本每克",
+          "nullable": true
+        },
+        {
+          "name": "at",
+          "type": "datetime",
+          "description": "时点",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "move_id"
+      ],
+      "references": [
+        {
+          "column": "pot_id",
+          "target_table": "pots",
+          "target_column": "pot_id"
+        }
+      ],
+      "path": "data/ingredient_moves.csv",
+      "row_count": 4,
+      "sha256": "27dcf1edcbac356129b15808e89221abcf2e89980c563227f16c6d2edb8aa94e"
+    },
+    {
+      "name": "portions",
+      "description": "送出份与锅关联。",
+      "columns": [
+        {
+          "name": "portion_id",
+          "type": "string",
+          "description": "餐份",
+          "nullable": true
+        },
+        {
+          "name": "pot_id",
+          "type": "string",
+          "description": "锅",
+          "nullable": true
+        },
+        {
+          "name": "slot_id",
+          "type": "string",
+          "description": "槽",
+          "nullable": true
+        },
+        {
+          "name": "meal_type",
+          "type": "string",
+          "description": "餐种",
+          "nullable": true
+        },
+        {
+          "name": "sent_at",
+          "type": "datetime",
+          "description": "送出",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "portion_id"
+      ],
+      "references": [
+        {
+          "column": "pot_id",
+          "target_table": "pots",
+          "target_column": "pot_id"
+        },
+        {
+          "column": "slot_id",
+          "target_table": "meal_slots",
+          "target_column": "slot_id"
+        }
+      ],
+      "path": "data/portions.csv",
+      "row_count": 3,
+      "sha256": "35428aa3d0e3bf39c3fb8de47cb75139b365d897423e2b9fe60b76dd15edaed2"
+    },
+    {
+      "name": "receipts",
+      "description": "独立层级证据。",
+      "columns": [
+        {
+          "name": "receipt_id",
+          "type": "string",
+          "description": "回执",
+          "nullable": true
+        },
+        {
+          "name": "portion_id",
+          "type": "string",
+          "description": "份",
+          "nullable": true
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "description": "ward_receipt或person_receipt或discard",
+          "nullable": true
+        },
+        {
+          "name": "party",
+          "type": "string",
+          "description": "主体",
+          "nullable": true
+        },
+        {
+          "name": "at",
+          "type": "datetime",
+          "description": "时点",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "receipt_id"
+      ],
+      "references": [
+        {
+          "column": "portion_id",
+          "target_table": "portions",
+          "target_column": "portion_id"
+        }
+      ],
+      "path": "data/receipts.csv",
+      "row_count": 6,
+      "sha256": "dff967d7915c053b790d77dfdcdaa21300713fe50b959e57efa440c1e5453160"
+    }
+  ]
+}

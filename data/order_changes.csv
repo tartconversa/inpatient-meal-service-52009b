@@ -1,0 +1,6 @@
+change_id,slot_id,effective,meal_type,ward,state
+C1,S1,2026-10-16T08:00:00+08:00,M1,W1,active
+C2,S1,2026-10-16T16:00:00+08:00,M1,W2,active
+C3,S1,2026-10-16T17:00:00+08:00,M1,W2,cancelled
+C4,S2,2026-10-16T08:00:00+08:00,M1,W1,active
+C5,S3,2026-10-16T08:00:00+08:00,M2,W2,active

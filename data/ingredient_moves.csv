@@ -1,0 +1,5 @@
+move_id,pot_id,ingredient,kind,grams,yuan_per_g,at
+I1,K1,rice,issue,600,0.01,2026-10-16T13:00:00+08:00
+I2,K1,rice,return,50,0.01,2026-10-16T20:00:00+08:00
+I3,K1,vegetable,issue,600,0.02,2026-10-16T13:00:00+08:00
+I4,K1,vegetable,return,80,0.02,2026-10-16T20:00:00+08:00

@@ -1,0 +1,7 @@
+receipt_id,portion_id,kind,party,at
+X1,P1,ward_receipt,W2,2026-10-16T17:00:00+08:00
+X2,P1,ward_receipt,W1,2026-10-16T18:00:00+08:00
+X3,P2,ward_receipt,W1,2026-10-16T17:00:00+08:00
+X4,P2,person_receipt,P2,2026-10-16T18:00:00+08:00
+X5,P3,person_receipt,P3,2026-10-16T18:00:00+08:00
+X6,P1,discard,kitchen,2026-10-16T20:00:00+08:00
